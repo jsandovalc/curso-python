@@ -1,0 +1,240 @@
+* Introducción a Python
+  - Es un lenguaje *interpretado*.
+  - Es un lenguaje de alto nivel.
+  - Es un lenguaje fuertemente tipado.
+  - Es un lenguaje fuertemente orientado a objetos.
+** Ejecutando el intérprete
+   #+begin_src sh
+     python
+   #+end_src
+** Tipos de datos numéricos
+   #+begin_src python
+     1  # un entero (int)
+     1.0  # un real (float)
+     1 + 1j  # un complejo
+   #+end_src
+
+** Operaciones matemáticas
+   #+begin_src python
+     1 + 1
+     1 - 1
+     1 * 1
+     1 / 2  # da como resultado un float
+     1 // 2  # da como resultado un entero
+     1 % 2  # el módulo de la división
+     2 ** 4  # 2 elevado a la 4
+
+     1 > 2  # retorna False, un booleano
+     1 < 2  # retorna True
+     1 == 2
+     1 != 2
+     1 < 2 < 3
+   #+end_src
+
+** Operadores booleanos
+   #+begin_src python
+     True
+     False
+
+     True and True
+     True or False
+     not True
+
+   #+end_src
+
+** Tipos de datos
+   #+begin_src python
+     ""  # Es False
+     "string"  # str
+     b"bytes"  # una cadena de bytes
+
+     []  # lista vacía (False)
+     [1, 2]  # lista de enteros
+     [1, "cadena"]  # no tienen un tipo
+
+     {}  # diccionario vacío (False)
+     {"llave": "valor"}
+
+     {1, 2, 3}  # un conjunto
+     set()  # conjunto vacío
+     len({1, 1, 1} == 1)  # Es True, no cuentan los repetidos
+
+     (1, 2, 3)  # una tupla
+     tuple()  # tupla vacía
+     (1,)  # tupla de un solo elemento
+   #+end_src
+** Trabajando con secuencias
+   #+begin_src python
+     "abc"[0]  # entrega 'a'
+     "abc"[-1]  # entrega c
+     "abcdef"[1:]  # "bcdef"
+     "abcdef"[:2]  # "ab"
+     "abcdefghij"[1:4]  # "bcd"
+
+     "abcdefghij"[::2]  # "acege"  de a dos en dos
+     "abcdefghij"[::-1]  # "jihgfedcba"  de a uno en uno, desde atrás
+   #+end_src
+
+   *Lo mismo funciona para cualquier secuencia de listas ordenadas
+    como tuplas o listas.*
+** Estructuras de control
+*** IF
+    #+begin_src python
+      if 1 == 1:
+          print("hola mundo")
+      elif 2 != 1:
+          print("diferente")
+      elif True and False:
+          print("tercer elif")
+      else:
+          print("else")
+    #+end_src
+*** while
+    #+begin_src python
+      while True:
+          print("iteración")
+          if 1 == 1:
+              break
+          else:
+              continue
+      else:
+          print("Si no llega al break")
+    #+end_src
+*** For
+    Equivalente a un ~for each~ de otros lenguajes. Funciona con
+    secuencias.
+    #+begin_src python
+      for i in range(10):
+          print(i)
+      else:
+          print("no hubo breaks")
+    #+end_src
+    #+begin_src python
+      range(3)  # [0, 1 , 2]
+    #+end_src
+*** Excepciones
+    #+begin_src python
+      try:
+          print([1, 2, 3])
+      except IOError:
+          print("una excepción")
+      except AttributeError:
+          print("otra excepción")
+      except:
+          print("todas las excepciones: ¡¡NO HACER!!")
+      else:
+          print("todo salió bien")
+          print("no colocar más lineas en el bloque del try")
+      finally:
+          print("se ejecuta siempre, no importa si sale bien o no")
+    #+end_src
+*** with statements
+    Luego de una cláusula ~with~, se ejecuta el código de cerrado de
+    archivos. Los ~with~ se usan con manejadores de contexto.
+
+    #+begin_src python
+      with open("file.txt", "r") as f:
+          for line in f.readlines():
+              print(line)
+
+    #+end_src
+** F-strings
+   #+begin_src python
+     i = 5
+     f"Esto es una f-string {i} {1 + 1}"
+     f"Dentro van expresiones de todo tipo {i ** 2}"
+   #+end_src
+** Funciones
+   #+begin_src python
+     from typing import Any
+
+     def function(x: int, y: int, f=1, *args, **kwargs) -> int:
+         """Esta es la documentación de la función.
+
+         Esta es una descripción más detallada.
+
+         Los tipos son opcionales.
+
+         Parameters
+         ----------
+         x
+            Un entero
+
+         """
+         result = sum(args)
+
+         return x + y + result
+   #+end_src
+* Programación orientada a objetos
+  - Clases.
+  - Instancias.
+  - Objetos.
+  - Métodos.
+  - Atributos.
+  - Herencia.
+  - Constructores, destructores, etc.
+** Clases
+   #+begin_src python
+     class Gato:
+         """Documentación de la clase."""
+         patas = 4  # atributos de clase
+
+         def __init__(self):
+             """Documentación de la inicializadora. Más o menos, la
+             constructora.
+
+             """
+             self.x = 1  # atributo de la instancia
+
+         def method(self) -> int:
+             """Self es la referencia a sí mismos."""
+             return self.x + 1
+   #+end_src
+** Instancias
+   #+begin_src python
+     un_gato = Gato()
+
+     print(un_gato.x, un_gato.method())
+   #+end_src
+** Herencia
+   #+begin_src python
+     class Padre:
+         def dar_dinero(self, x):
+             pass
+
+     class Hijo(Padre):
+         pass
+
+     class Madre:
+         pass
+
+
+     class Multiple(Padre, Madre):
+         def __init__(self):
+             """Con super podemos llamar a las clases de los padres."""
+             super().__init__()
+
+             super().dar_dinero(10_000_000)
+   #+end_src
+* Python Intermedio
+** Secuencias por comprensión
+   #+begin_src python
+     [x for x in range(3)]  # [0, 1, 2]
+     [x ** 2 for x in range(4)]  # [0, 1, 4, 9]
+
+     [x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]
+
+     {x: x**2 for x in range(4)} # {0: 0, 1: 1, 2: 4, 3: 9}
+   #+end_src
+** Entornos virtuales
+   #+begin_src sh
+     python -m venv env  # creamos el entorno virtual
+     source env/bin/activate  # En sistemas tipo unix
+   #+end_src
+** Usando pip
+   #+begin_src sh
+     pip install django
+   #+end_src
+* Django
+#+DOWNLOADED: https://miro.medium.com/max/500/1*pHlF3KufWwX7svv4Mv4Frg.jpeg @ 2020-10-22 17:22:38
+[[file:Django/2020-10-22_17-22-38_1*pHlF3KufWwX7svv4Mv4Frg.jpeg]]
