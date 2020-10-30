@@ -1,16 +1,11 @@
 {% extends 'posts/base.html' %}
 
-{% block title %}
-  Editar una entrada
-{% endblock %}
-
 {% block content %}
-  <h2>Nueva entrada</h2>
+  <h2>Nuevo vehículo</h2>
 
   <form method="POST" class="post-form">
     {% csrf_token %}
-
-    {{ form.as_p }}
+      {{ form.as_p }}
 
     <button type="submit" class="save btn btn-default">Guardar</button>
   </form>
